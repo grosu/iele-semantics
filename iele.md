@@ -1081,9 +1081,10 @@ The various `CALL*` (and other inter-contract control flow) operations will be d
       requires notBool LABEL in LABELS
 
     rule <k> #initFun(LABEL, NARGS) => #exception ... </k>
+         <id> ACCT </id>
          <funcId> LABEL </funcId>
          <nparams> NPARAMS </nparams>
-      requires NARGS =/=Int NPARAMS
+      requires NARGS =/=Int NPARAMS andBool notBool (ACCT ==Int #precompiledAccount andBool LABEL ==K iele.ecpairing)
 
     rule <k> #initFun(LABEL, NARGS) => #if EXECMODE ==K VMTESTS #then #end #else #execute #fi ... </k>
          <mode> EXECMODE </mode>
@@ -1091,8 +1092,8 @@ The various `CALL*` (and other inter-contract control flow) operations will be d
          <exported> FUNCS </exported>
          <fid> _ => LABEL </fid>
          <funcId> LABEL </funcId>
-         <nparams> NARGS </nparams>
-      requires LABEL in FUNCS
+         <nparams> NPARAMS </nparams>
+      requires LABEL in FUNCS andBool (NPARAMS ==Int NARGS orBool (ACCT ==Int #precompiledAccount andBool LABEL ==K iele.ecpairing))
 
     syntax KItem ::= "#return" LValues LValue
  // -----------------------------------
