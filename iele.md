@@ -1440,6 +1440,7 @@ For each `call*` operation, we make a corresponding call to `#call` and a state-
            ...
          </account>
 
+    rule <k> (.K => #newAccount ACCT) ~> #exec _ = copycreate ACCT ( _ ) send _ ... </k> <activeAccounts> ACCTS </activeAccounts> requires notBool ACCT in_keys(ACCTS)
 ```
 
 `selfdestruct` marks the current account for deletion and transfers funds out of the current account.
